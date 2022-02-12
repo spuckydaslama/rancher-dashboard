@@ -15,4 +15,8 @@
 	});
 </script>
 
+<svelte:head>
+    <title>Rancher Dashboard - Clusters</title>
+</svelte:head>
+
 <ClusterDashboard {clusters} />
