@@ -8,6 +8,7 @@
 
 	export let cluster: ClusterType;
 
+	let favoriteCluster;
 	$: favoriteCluster = $favoriteClusters.find((favorite) => favorite.id === cluster.id);
 
 	const handleFavoriteChanged = (event: MouseEvent) => {
@@ -22,7 +23,7 @@
 
 <DashboardBox href="/clusters/{cluster.id}">
 	<DashboardFavouriteSwitch
-		favorite={!!favoriteCluster}
+		value={!!favoriteCluster}
 		on:click={handleFavoriteChanged}
 		class="absolute right-1 top-1 h-6 w-6"
 	/>
