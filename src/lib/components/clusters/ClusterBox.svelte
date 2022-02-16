@@ -8,7 +8,6 @@
 
 	export let cluster: ClusterType;
 
-	let favoriteCluster;
 	$: favoriteCluster = $favoriteClusters.find((favorite) => favorite.id === cluster.id);
 
 	const handleFavoriteChanged = (event: MouseEvent) => {

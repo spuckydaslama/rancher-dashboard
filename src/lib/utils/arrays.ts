@@ -1,5 +1,5 @@
 export const isUniquePredicate: <T>(
-	fn?: (value: T) => any
+	fn?: (value: T) => unknown
 ) => (value: T, index: number, array: T[]) => boolean =
 	(fn = (value) => value) =>
 	(value, index, array) =>

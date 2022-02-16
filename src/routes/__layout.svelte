@@ -1,12 +1,6 @@
 <script>
 	import '../app.css';
-	import DashboardToolbar from '$lib/components/atoms/dashboardToolbar/DashboardToolbar.svelte';
-	import FavoritesSwitch from '$lib/components/toolbar/FavoritesSwitch.svelte';
-	import { showOnlyFavourites } from '$lib/stores/favorites';
-
-	const favoritesSwitchClicked = () => {
-		$showOnlyFavourites = !$showOnlyFavourites;
-	};
+	import MainToolbar from '$lib/components/toolbar/MainToolbar.svelte';
 </script>
 
 <svelte:head>
@@ -17,8 +11,8 @@
 </svelte:head>
 
 <div class="mt-2 lg:ml-16 lg:mr-16">
-	<DashboardToolbar>
-		<FavoritesSwitch value={$showOnlyFavourites} on:click={favoritesSwitchClicked} />
-	</DashboardToolbar>
+	<div class="mb-4">
+		<MainToolbar />
+	</div>
 	<slot />
 </div>
