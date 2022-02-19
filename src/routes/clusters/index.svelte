@@ -2,22 +2,12 @@
 	import type { ClusterType } from '$lib/types/ranchertypes';
 	import { onMount } from 'svelte';
 	import ClusterDashboard from '$lib/components/clusters/ClusterDashboard.svelte';
-	import { authToken, rancherUrl } from '$lib/stores/settings';
+	import { getClusters } from '$lib/api/localApiClient';
 
 	let clusters: ClusterType[];
 
 	onMount(async () => {
-		const response = await fetch('/api/clusters', {
-			headers: {
-				Authorization: $authToken,
-				RancherUrl: $rancherUrl
-			}
-		});
-		if (response.status === 200) {
-			clusters = (await response.json()).clusters;
-		} else {
-			clusters = undefined;
-		}
+		clusters = await getClusters();
 	});
 </script>
 

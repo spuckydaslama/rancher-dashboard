@@ -5,9 +5,12 @@
 	import LinkToRancherCluster from '$lib/components/clusters/LinkToRancherCluster.svelte';
 	import DashboardFavouriteSwitch from '$lib/components/atoms/dashboard/DashboardFavouriteSwitch.svelte';
 	import { favoriteClusters } from '$lib/stores/favorites';
+	import type { FavoriteCluster } from '$lib/types/favoritetypes';
+	import { pathToProjects } from '$lib/paths';
 
 	export let cluster: ClusterType;
 
+	let favoriteCluster: FavoriteCluster;
 	$: favoriteCluster = $favoriteClusters.find((favorite) => favorite.id === cluster.id);
 
 	const handleFavoriteChanged = (event: MouseEvent) => {
@@ -20,7 +23,7 @@
 	};
 </script>
 
-<DashboardBox href="/clusters/{cluster.id}">
+<DashboardBox href={pathToProjects(cluster.id)}>
 	<DashboardFavouriteSwitch
 		value={!!favoriteCluster}
 		on:click={handleFavoriteChanged}
