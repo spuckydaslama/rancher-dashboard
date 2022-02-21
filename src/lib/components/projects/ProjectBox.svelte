@@ -3,7 +3,7 @@
 	import DashboardBox from '$lib/components/atoms/dashboard/DashboardBox.svelte';
 	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
 	import DashboardFavouriteSwitch from '$lib/components/atoms/dashboard/DashboardFavouriteSwitch.svelte';
-	import { favoriteProjects } from '$lib/stores/favorites';
+	import { favoriteProjects, getFavoriteProject } from '$lib/stores/favorites';
 	import type { FavoriteProject } from '$lib/types/favoritetypes';
 	import { pathToProject } from '$lib/paths';
 
@@ -11,7 +11,7 @@
 	export let project: ProjectType;
 
 	let favoriteProject: FavoriteProject;
-	$: favoriteProject = $favoriteProjects[clusterId]?.find(({ id }) => id === project.id);
+	$: favoriteProject = getFavoriteProject(clusterId, project.id);
 
 	const handleFavoriteChanged = (event: MouseEvent) => {
 		event.preventDefault();

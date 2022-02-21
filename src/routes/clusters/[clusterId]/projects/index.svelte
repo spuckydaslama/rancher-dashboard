@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { getProjects } from '$lib/api/localApiClient';
+	import { getCluster, getProjects } from '$lib/api/localApiClient';
 	import ProjectDashboard from '$lib/components/projects/ProjectDashboard.svelte';
 	import type { ProjectType } from '$lib/types/ranchertypes';
 
@@ -11,6 +11,8 @@
 	onMount(async () => {
 		projects = await getProjects(clusterId);
 	});
+
+	getCluster(clusterId);
 </script>
 
 <svelte:head>

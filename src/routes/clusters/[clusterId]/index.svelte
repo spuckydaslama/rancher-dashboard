@@ -2,23 +2,20 @@
 	import { page } from '$app/stores';
 	import type { ClusterType } from '$lib/types/ranchertypes';
 	import { onMount } from 'svelte';
-	import { favoriteClusters } from '$lib/stores/favorites';
+	import { getFavoriteCluster } from '$lib/stores/favorites';
 	import { getCluster } from '$lib/api/localApiClient';
 	import DashboardBox from '$lib/components/atoms/dashboard/DashboardBox.svelte';
 	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
-	import { selectedCluster } from '$lib/stores/selected';
 	import DashboardBoxGrid from '$lib/components/atoms/dashboard/DashboardBoxGrid.svelte';
 
 	let { clusterId } = $page.params;
 
 	let cluster: ClusterType;
-	$: cluster = $favoriteClusters.find(({ id }) => id === clusterId);
+	$: cluster = getFavoriteCluster(clusterId);
 
 	onMount(async () => {
 		cluster = await getCluster(clusterId);
 	});
-
-	$: $selectedCluster = cluster;
 </script>
 
 <svelte:head>
