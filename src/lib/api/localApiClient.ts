@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
 import { authToken, rancherUrl } from '$lib/stores/settings';
-import type { ClusterType, ProjectType } from '$lib/types/ranchertypes';
+import type { ClusterType, ProjectType, WorkloadType } from '$lib/types/ranchertypes';
 
 const localApiCall = async (url: string) => {
 	return fetch(url, {
@@ -46,6 +46,17 @@ export const getProject: (projectId: string) => PromiseLike<ProjectType> | undef
 	projectId
 ) => {
 	const response = await localApiCall(`/api/projects/${projectId}`);
+	if (response.status === 200) {
+		return await response.json();
+	} else {
+		return undefined;
+	}
+};
+
+export const getWorkloads: (projectId: string) => PromiseLike<WorkloadType[]> | undefined = async (
+	projectId
+) => {
+	const response = await localApiCall(`/api/projects/${projectId}/workloads`);
 	if (response.status === 200) {
 		return await response.json();
 	} else {

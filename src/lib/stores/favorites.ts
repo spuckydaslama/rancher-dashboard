@@ -4,7 +4,8 @@ import type {
 	FavoriteCluster,
 	FavoriteClusters,
 	FavoriteProject,
-	FavoriteProjects
+	FavoriteProjects,
+	FavoriteWorkloads
 } from '$lib/types/favoritetypes';
 
 export const showOnlyFavourites = localStoreWritable<boolean>('$showOnlyFavourites', false);
@@ -13,9 +14,12 @@ export const favoriteClusters = localStoreWritable<FavoriteClusters>('favoriteCl
 export const getFavoriteCluster: (clusterId: string | undefined) => FavoriteCluster | undefined = (
 	clusterId
 ) => get(favoriteClusters).find((cluster) => cluster.id === clusterId);
+
 export const favoriteProjects = localStoreWritable<FavoriteProjects>('favoriteProjects', {});
 export const getFavoriteProject: (
 	clusterId: string | undefined,
 	projectId: string | undefined
 ) => FavoriteProject | undefined = (clusterId, projectId) =>
 	get(favoriteProjects)[clusterId]?.find((project) => project.id === projectId);
+
+export const favoriteWorkloads = localStoreWritable<FavoriteWorkloads>('favoriteWorkload', {});
