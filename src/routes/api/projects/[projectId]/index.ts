@@ -11,5 +11,5 @@ export const get: RequestHandler = async (event) => {
 	const { id, name } = await response.json();
 	const project: ProjectType = { id, name };
 	const body = project as unknown as JSONValue;
-	return { body };
+	return { body, headers: {"Cache-Control": "max-age=60"} };
 };

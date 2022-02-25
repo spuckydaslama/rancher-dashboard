@@ -10,7 +10,7 @@
 	import HomeItem from '$lib/components/toolbar/HomeItem.svelte';
 	import type { Crumb } from '$lib/components/atoms/breadcrumb/types';
 	import BreadcrumbItem from '$lib/components/atoms/breadcrumb/BreadcrumbItem.svelte';
-	import { pathToProject, pathToProjects, pathToSettings } from '$lib/paths';
+	import { pathToProjects, pathToSettings, pathToWorkloads } from '$lib/paths';
 	import { page } from '$app/stores';
 	import { getCluster, getProject } from '$lib/api/localApiClient';
 	import type { ClusterType, ProjectType } from '$lib/types/ranchertypes';
@@ -45,7 +45,7 @@
 			crumbObjects.push(
 				project.then((project) => ({
 					name: project.name,
-					href: pathToProject(clusterId, projectId)
+					href: pathToWorkloads(clusterId, projectId)
 				}))
 			);
 		}

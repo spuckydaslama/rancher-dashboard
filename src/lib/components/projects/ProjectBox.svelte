@@ -5,7 +5,7 @@
 	import DashboardFavouriteSwitch from '$lib/components/atoms/dashboard/DashboardFavouriteSwitch.svelte';
 	import { favoriteProjects, getFavoriteProject } from '$lib/stores/favorites';
 	import type { FavoriteProject } from '$lib/types/favoritetypes';
-	import { pathToProject } from '$lib/paths';
+	import { pathToWorkloads } from '$lib/paths';
 
 	export let clusterId: string;
 	export let project: ProjectType;
@@ -30,7 +30,7 @@
 	};
 </script>
 
-<DashboardBox href={pathToProject(clusterId, project.id)}>
+<DashboardBox href={pathToWorkloads(clusterId, project.id)}>
 	<DashboardFavouriteSwitch
 		value={!!favoriteProject}
 		on:click={handleFavoriteChanged}

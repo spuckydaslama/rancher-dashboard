@@ -10,6 +10,6 @@ export const get: RequestHandler = async (event) => {
 	}
 	const payload = await response.json();
 	const clusters: ClusterType[] = payload.data.map(({ id, name }) => ({ id, name }));
-	const clusterBody = clusters as unknown as JSONValue;
-	return { body: clusterBody };
+	const body = clusters as unknown as JSONValue;
+	return { body, headers: { 'Cache-Control': 'max-age=60' } };
 };
