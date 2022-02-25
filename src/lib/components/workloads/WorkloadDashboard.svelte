@@ -3,6 +3,7 @@
 	import type { WorkloadType } from '$lib/types/ranchertypes';
 	import { favoriteWorkloads, showOnlyFavourites } from '$lib/stores/favorites';
 	import { isUniquePredicate } from '$lib/utils/arrays';
+	import WorkloadBox from '$lib/components/workloads/WorkloadBox.svelte';
 
 	export let projectId: string;
 	export let workloads: WorkloadType[];
@@ -26,7 +27,7 @@
 <DashboardBoxGrid loading={!workloads && !$showOnlyFavourites}>
 	{#if filteredWorkloads}
 		{#each filteredWorkloads as workload}
-			<div>{workload.name}-{workload.namespaceId}</div>
+			<WorkloadBox {projectId} {workload} />
 		{/each}
 	{/if}
 </DashboardBoxGrid>

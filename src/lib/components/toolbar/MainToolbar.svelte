@@ -9,13 +9,13 @@
 	import SettingsItem from '$lib/components/toolbar/SettingsItem.svelte';
 	import HomeItem from '$lib/components/toolbar/HomeItem.svelte';
 	import type { Crumb } from '$lib/components/atoms/breadcrumb/types';
-	import BreadcrumbItem from '$lib/components/atoms/breadcrumb/BreadcrumbItem.svelte';
 	import { pathToProjects, pathToSettings, pathToWorkloads } from '$lib/paths';
 	import { page } from '$app/stores';
 	import { getCluster, getProject } from '$lib/api/localApiClient';
 	import type { ClusterType, ProjectType } from '$lib/types/ranchertypes';
 	import type { FavoriteCluster, FavoriteProject } from '$lib/types/favoritetypes';
 	import { browser } from '$app/env';
+	import Breadcrumbs from '$lib/components/atoms/breadcrumb/Breadcrumbs.svelte';
 
 	const favoritesSwitchClicked = () => {
 		$showOnlyFavourites = !$showOnlyFavourites;
@@ -63,7 +63,7 @@
 <DashboardToolbar>
 	<svelte:fragment slot="main">
 		<HomeItem />
-		<BreadcrumbItem {crumbs} />
+		<Breadcrumbs {crumbs} />
 	</svelte:fragment>
 	<svelte:fragment slot="side">
 		<FavoritesSwitch value={$showOnlyFavourites} on:click={favoritesSwitchClicked} />

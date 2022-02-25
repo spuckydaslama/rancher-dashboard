@@ -14,5 +14,5 @@ export const get: RequestHandler = async (event) => {
 	const payload = await response.json();
 	const projects: ProjectType[] = payload.data.map(({ id, name }) => ({ id, name }));
 	const body = projects as unknown as JSONValue;
-	return { body, headers: {"Cache-Control": "max-age=60"} };
+	return { body, headers: { 'Cache-Control': 'max-age=60' } };
 };

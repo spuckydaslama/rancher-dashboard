@@ -11,7 +11,7 @@
 	export let project: ProjectType;
 
 	let favoriteProject: FavoriteProject;
-	$: favoriteProject = getFavoriteProject(clusterId, project.id);
+	$: favoriteProject = getFavoriteProject(clusterId, project?.id);
 
 	const handleFavoriteChanged = (event: MouseEvent) => {
 		event.preventDefault();

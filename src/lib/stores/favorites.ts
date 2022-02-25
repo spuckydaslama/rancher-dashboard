@@ -5,6 +5,7 @@ import type {
 	FavoriteClusters,
 	FavoriteProject,
 	FavoriteProjects,
+	FavoriteWorkload,
 	FavoriteWorkloads
 } from '$lib/types/favoritetypes';
 
@@ -23,3 +24,8 @@ export const getFavoriteProject: (
 	get(favoriteProjects)[clusterId]?.find((project) => project.id === projectId);
 
 export const favoriteWorkloads = localStoreWritable<FavoriteWorkloads>('favoriteWorkload', {});
+export const getFavoriteWorkload: (
+	projectId: string | undefined,
+	workloadId: string | undefined
+) => FavoriteWorkload | undefined = (projectId, workloadId) =>
+	get(favoriteWorkloads)[projectId]?.find((workload) => workload.id === workloadId);
