@@ -54,26 +54,11 @@ export const getProject: (projectId: string) => PromiseLike<ProjectType> | undef
 	}
 };
 
-export const getWorkloads: (projectId: string) => PromiseLike<WorkloadType[]> | undefined = async (
-	projectId
-) => {
-	const response = await localApiCall(`/api/projects/${projectId}/workloads`);
-	if (response.status === 200) {
-		return await response.json();
-	} else {
-		return undefined;
-	}
-};
-
-export const getWorkload: (
+export const getWorkloads: (
 	projectId: string,
-	workloadId: string,
 	abortSignal?: AbortSignal
-) => PromiseLike<WorkloadType> | undefined = async (projectId, workloadId, abortSignal) => {
-	const response = await localApiCall(
-		`/api/projects/${projectId}/workloads/${workloadId}`,
-		abortSignal
-	);
+) => PromiseLike<WorkloadType[]> | undefined = async (projectId, abortSignal) => {
+	const response = await localApiCall(`/api/projects/${projectId}/workloads`, abortSignal);
 	if (response.status === 200) {
 		return await response.json();
 	} else {

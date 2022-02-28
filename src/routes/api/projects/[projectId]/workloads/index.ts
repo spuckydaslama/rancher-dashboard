@@ -15,5 +15,5 @@ export const get: RequestHandler = async (event) => {
 	const payload = await response.json();
 	const workload: WorkloadType[] = payload.data.map(mapToWorkload);
 	const body = workload as unknown as JSONValue;
-	return { body, headers: { 'Cache-Control': 'max-age=30' } };
+	return { body };
 };

@@ -7,11 +7,7 @@
 	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
 	import LinkToRancherWorkload from '$lib/components/workloads/LinkToRancherWorkload.svelte';
 	import { ColorMode, colorModes } from '$lib/components/atoms/dashboard/colorModes';
-	import { onDestroy, onMount } from 'svelte';
-	import { getWorkload } from '$lib/api/localApiClient';
 	import LinkToRancherApiUiWorkload from '$lib/components/workloads/LinkToRancherApiUiWorkload.svelte';
-	import IconRefresh from '$lib/components/atoms/icons/IconRefresh.svelte';
-	import { browser } from '$app/env';
 
 	export let clusterId: string;
 	export let projectId: string;
@@ -54,36 +50,6 @@
 		}
 	};
 	$: scaleColorMode = getScaleColorMode(workload.readyReplicas, workload.scale);
-
-	let loadingDetails: boolean;
-	let updateDetailsTimeout: number;
-	const abortWorkload = new AbortController();
-	const abortLoadingDetails = () => {
-		abortWorkload.abort();
-		if (updateDetailsTimeout) {
-			clearTimeout(updateDetailsTimeout as number);
-		}
-	};
-	const updateDetails = () => {
-		if (loadingDetails) {
-			return;
-		}
-		if (browser) {
-			updateDetailsTimeout = setTimeout(async () => {
-				loadingDetails = true;
-				workload = await getWorkload(projectId, workload.id, abortWorkload.signal);
-				loadingDetails = false;
-				updateDetails();
-			}, 10000 + 20000 * Math.random()) as unknown as number;
-		}
-	};
-
-	onMount(() => {
-		updateDetails();
-	});
-	onDestroy(() => {
-		abortLoadingDetails();
-	});
 </script>
 
 <DashboardBox colorMode={scaleColorMode}>
