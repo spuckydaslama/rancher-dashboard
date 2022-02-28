@@ -9,8 +9,9 @@
 
 	let workloads: WorkloadType[];
 	let updateWorkloadsTimeout: number;
-	const abortUpdateWorkloads = new AbortController();
+	let abortUpdateWorkloads: AbortController | undefined;
 	const updateWorkloads = async () => {
+		abortUpdateWorkloads = new AbortController();
 		workloads = (await getWorkloads(projectId, abortUpdateWorkloads.signal)).filter(({ type }) =>
 			['deployment', 'statfulSet'].includes(type)
 		);
@@ -21,7 +22,9 @@
 		updateWorkloads();
 	});
 	onDestroy(() => {
-		abortUpdateWorkloads.abort();
+		if (abortUpdateWorkloads) {
+			abortUpdateWorkloads.abort();
+		}
 		if (updateWorkloadsTimeout) {
 			clearTimeout(updateWorkloadsTimeout);
 		}
