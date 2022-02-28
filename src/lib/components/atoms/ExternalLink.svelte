@@ -4,7 +4,7 @@
 	export let href: string;
 </script>
 
-<a target="_blank" {href} class="text-gray-500 hover:underline">
+<a target="_blank" {href} class="text-sm text-gray-500 hover:underline">
 	<span class="inline-flex items-center gap-0.5">
 		<slot />
 		<IconExternalLink class="inline h-4 w-4" />

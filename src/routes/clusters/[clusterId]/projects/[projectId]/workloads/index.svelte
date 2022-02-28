@@ -14,7 +14,7 @@
 		workloads = (await getWorkloads(projectId, abortUpdateWorkloads.signal)).filter(({ type }) =>
 			['deployment', 'statfulSet'].includes(type)
 		);
-		updateWorkloadsTimeout = setTimeout(updateWorkloads, 5000) as unknown as number;
+		updateWorkloadsTimeout = setTimeout(updateWorkloads, 10000) as unknown as number;
 	};
 
 	onMount(() => {

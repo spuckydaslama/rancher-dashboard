@@ -1,3 +1,3 @@
-<span class="text-xl">
+<span class="text-lg">
 	<slot />
 </span>

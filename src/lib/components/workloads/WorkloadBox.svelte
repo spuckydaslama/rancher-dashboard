@@ -7,7 +7,6 @@
 	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
 	import LinkToRancherWorkload from '$lib/components/workloads/LinkToRancherWorkload.svelte';
 	import { ColorMode, colorModes } from '$lib/components/atoms/dashboard/colorModes';
-	import LinkToRancherApiUiWorkload from '$lib/components/workloads/LinkToRancherApiUiWorkload.svelte';
 
 	export let clusterId: string;
 	export let projectId: string;
@@ -65,12 +64,14 @@
 		<span class="text-sm text-gray-700">{workload.namespaceId}</span>
 	</div>
 	<div class="flex items-center">
-		<span>{scaleState}</span>
-	</div>
-	<div>
-		<LinkToRancherWorkload {clusterId} {workload}>workload</LinkToRancherWorkload>
-		<LinkToRancherApiUiWorkload {projectId} workloadId={workload?.id}>
-			api
-		</LinkToRancherApiUiWorkload>
+		<div class="grow">
+			<span>{scaleState}</span>
+		</div>
+		<div>
+			<LinkToRancherWorkload {clusterId} {workload}>workload</LinkToRancherWorkload>
+			<!--			<LinkToRancherApiUiWorkload {projectId} workloadId={workload?.id}>-->
+			<!--				api-->
+			<!--			</LinkToRancherApiUiWorkload>-->
+		</div>
 	</div>
 </DashboardBox>
