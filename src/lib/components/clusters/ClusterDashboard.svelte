@@ -14,7 +14,7 @@
 
 	let filteredClusters: Array<ClusterType | FavoriteCluster>;
 	$: filteredClusters =
-		$showOnlyFavourites && dynamicAndStoredClusters
+		$showOnlyFavourites && dynamicAndStoredClusters && $favoriteClusters?.length > 0
 			? dynamicAndStoredClusters.filter((cluster) =>
 					$favoriteClusters.some(({ id }) => id === cluster.id)
 			  )

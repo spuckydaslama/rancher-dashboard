@@ -21,7 +21,7 @@
 
 	let filteredWorkloads: WorkloadType[];
 	$: filteredWorkloads =
-		$showOnlyFavourites && dynamicAndStoredWorkloads && favoriteWorkloadsForThisProject
+		$showOnlyFavourites && dynamicAndStoredWorkloads && favoriteWorkloadsForThisProject?.length > 0
 			? dynamicAndStoredWorkloads.filter((workload) =>
 					favoriteWorkloadsForThisProject.some(({ id }) => id === workload.id)
 			  )

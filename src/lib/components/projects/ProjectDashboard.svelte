@@ -16,7 +16,7 @@
 	].filter(isUniquePredicate((p) => p.id));
 
 	$: filteredProjects =
-		$showOnlyFavourites && dynamicAndStoredProjects && favoriteProjectsForThisCluster
+		$showOnlyFavourites && dynamicAndStoredProjects && favoriteProjectsForThisCluster?.length > 0
 			? dynamicAndStoredProjects.filter((project) =>
 					favoriteProjectsForThisCluster.some(({ id }) => id === project.id)
 			  )
