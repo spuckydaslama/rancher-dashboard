@@ -1,3 +1,5 @@
+import type { WorkloadType } from '$lib/types/ranchertypes';
+
 export const fetchFromRancher: (request: Request, path: string) => Promise<Response> = async (
 	request,
 	path
@@ -16,4 +18,19 @@ export const fetchFromRancher: (request: Request, path: string) => Promise<Respo
 			Authorization: authHeader
 		}
 	});
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mapToWorkload: (payload: any) => WorkloadType = (payload) => {
+	const { id, name, namespaceId, type, scale } = payload;
+	const status = payload[`${type}Status`];
+	const readyReplicas = status?.readyReplicas;
+	return {
+		id,
+		name,
+		namespaceId,
+		type,
+		scale,
+		readyReplicas
+	};
 };

@@ -1,6 +1,6 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import type { JSONValue } from '@sveltejs/kit/types/helper';
-import { fetchFromRancher } from '$lib/api/rancherApiClient';
+import { fetchFromRancher, mapToWorkload } from '$lib/api/rancherApiClient';
 import type { WorkloadType } from '$lib/types/ranchertypes';
 
 export const get: RequestHandler = async (event) => {
@@ -13,11 +13,7 @@ export const get: RequestHandler = async (event) => {
 	}
 
 	const payload = await response.json();
-	const workload: WorkloadType[] = payload.data.map(({ id, name, namespaceId }) => ({
-		id,
-		name,
-		namespaceId
-	}));
+	const workload: WorkloadType[] = payload.data.map(mapToWorkload);
 	const body = workload as unknown as JSONValue;
-	return { body };
+	return { body, headers: { 'Cache-Control': 'max-age=30' } };
 };

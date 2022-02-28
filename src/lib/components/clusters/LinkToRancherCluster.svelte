@@ -6,7 +6,7 @@
 
 	let href: string;
 	$: if ($rancherUrl && clusterId) {
-		href = `${$rancherUrl}/dashboard/c/${clusterId}/explorer/apps.deployment`;
+		href = `${$rancherUrl}/dashboard/c/${clusterId}/explorer/workload`;
 	}
 </script>
 

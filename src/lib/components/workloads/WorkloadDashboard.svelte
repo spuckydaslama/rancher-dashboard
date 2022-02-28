@@ -4,12 +4,16 @@
 	import { favoriteWorkloads, showOnlyFavourites } from '$lib/stores/favorites';
 	import { isUniquePredicate } from '$lib/utils/arrays';
 	import WorkloadBox from '$lib/components/workloads/WorkloadBox.svelte';
+	import type { FavoriteWorkload } from '$lib/types/favoritetypes';
 
+	export let clusterId: string;
 	export let projectId: string;
 	export let workloads: WorkloadType[];
 
+	let favoriteWorkloadsForThisProject: FavoriteWorkload[];
 	$: favoriteWorkloadsForThisProject = $favoriteWorkloads[projectId];
 
+	let dynamicAndStoredWorkloads: WorkloadType[];
 	$: dynamicAndStoredWorkloads = [
 		...(workloads || []),
 		...(favoriteWorkloadsForThisProject || [])
@@ -26,8 +30,8 @@
 
 <DashboardBoxGrid loading={!workloads && !$showOnlyFavourites}>
 	{#if filteredWorkloads}
-		{#each filteredWorkloads as workload}
-			<WorkloadBox {projectId} {workload} />
+		{#each filteredWorkloads as workload (workload.id)}
+			<WorkloadBox {clusterId} {projectId} {workload} />
 		{/each}
 	{/if}
 </DashboardBoxGrid>

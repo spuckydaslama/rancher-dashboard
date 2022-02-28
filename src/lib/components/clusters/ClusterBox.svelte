@@ -33,6 +33,6 @@
 		<DashboardBoxName>{cluster.name}</DashboardBoxName>
 	</div>
 	<div>
-		<LinkToRancherCluster clusterId={cluster.id}>zum Rancher</LinkToRancherCluster>
+		<LinkToRancherCluster clusterId={cluster.id}>cluster</LinkToRancherCluster>
 	</div>
 </DashboardBox>

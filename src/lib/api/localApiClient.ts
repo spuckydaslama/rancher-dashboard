@@ -2,12 +2,13 @@ import { get } from 'svelte/store';
 import { authToken, rancherUrl } from '$lib/stores/settings';
 import type { ClusterType, ProjectType, WorkloadType } from '$lib/types/ranchertypes';
 
-const localApiCall = async (url: string) => {
+const localApiCall = async (url: string, abortSignal?: AbortSignal) => {
 	return fetch(url, {
 		headers: {
 			Authorization: get(authToken),
 			RancherUrl: get(rancherUrl)
-		}
+		},
+		signal: abortSignal
 	});
 };
 
@@ -57,6 +58,22 @@ export const getWorkloads: (projectId: string) => PromiseLike<WorkloadType[]> | 
 	projectId
 ) => {
 	const response = await localApiCall(`/api/projects/${projectId}/workloads`);
+	if (response.status === 200) {
+		return await response.json();
+	} else {
+		return undefined;
+	}
+};
+
+export const getWorkload: (
+	projectId: string,
+	workloadId: string,
+	abortSignal?: AbortSignal
+) => PromiseLike<WorkloadType> | undefined = async (projectId, workloadId, abortSignal) => {
+	const response = await localApiCall(
+		`/api/projects/${projectId}/workloads/${workloadId}`,
+		abortSignal
+	);
 	if (response.status === 200) {
 		return await response.json();
 	} else {

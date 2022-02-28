@@ -5,11 +5,13 @@
 	import type { WorkloadType } from '$lib/types/ranchertypes';
 	import WorkloadDashboard from '$lib/components/workloads/WorkloadDashboard.svelte';
 
-	const { projectId } = $page.params;
+	const { clusterId, projectId } = $page.params;
 
 	let workloads: WorkloadType[];
 	onMount(async () => {
-		workloads = await getWorkloads(projectId);
+		workloads = (await getWorkloads(projectId)).filter(({ type }) =>
+			['deployment', 'statfulSet'].includes(type)
+		);
 	});
 </script>
 
@@ -17,4 +19,4 @@
 	<title>Rancher Dashboard - Workloads</title>
 </svelte:head>
 
-<WorkloadDashboard {projectId} {workloads} />
+<WorkloadDashboard {clusterId} {projectId} {workloads} />

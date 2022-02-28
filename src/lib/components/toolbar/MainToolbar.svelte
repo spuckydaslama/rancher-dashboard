@@ -16,6 +16,7 @@
 	import type { FavoriteCluster, FavoriteProject } from '$lib/types/favoritetypes';
 	import { browser } from '$app/env';
 	import Breadcrumbs from '$lib/components/atoms/breadcrumb/Breadcrumbs.svelte';
+	import ClustersItem from '$lib/components/toolbar/ClustersItem.svelte';
 
 	const favoritesSwitchClicked = () => {
 		$showOnlyFavourites = !$showOnlyFavourites;
@@ -63,6 +64,7 @@
 <DashboardToolbar>
 	<svelte:fragment slot="main">
 		<HomeItem />
+		<ClustersItem />
 		<Breadcrumbs {crumbs} />
 	</svelte:fragment>
 	<svelte:fragment slot="side">

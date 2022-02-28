@@ -12,6 +12,7 @@ export interface WorkloadType {
 	id: string;
 	name: string;
 	namespaceId: string;
+	type: 'job' | 'deployment' | 'statefulSet' | 'cronJob';
 	scale?: number;
-	replicas?: number;
+	readyReplicas?: number;
 }

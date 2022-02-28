@@ -4,12 +4,15 @@
 	import type { ClusterType } from '$lib/types/ranchertypes';
 	import { favoriteClusters, showOnlyFavourites } from '$lib/stores/favorites';
 	import { isUniquePredicate } from '$lib/utils/arrays';
+	import type { FavoriteCluster } from '$lib/types/favoritetypes';
 
 	export let clusters: ClusterType[] | undefined;
+	let dynamicAndStoredClusters: Array<ClusterType | FavoriteCluster>;
 	$: dynamicAndStoredClusters = [...(clusters || []), ...($favoriteClusters || [])].filter(
 		isUniquePredicate((c) => c.id)
 	);
 
+	let filteredClusters: Array<ClusterType | FavoriteCluster>;
 	$: filteredClusters =
 		$showOnlyFavourites && dynamicAndStoredClusters
 			? dynamicAndStoredClusters.filter((cluster) =>
@@ -20,7 +23,7 @@
 
 <DashboardBoxGrid loading={!clusters && !$showOnlyFavourites}>
 	{#if filteredClusters}
-		{#each filteredClusters as cluster}
+		{#each filteredClusters as cluster (cluster.id)}
 			<ClusterBox {cluster} />
 		{/each}
 	{/if}

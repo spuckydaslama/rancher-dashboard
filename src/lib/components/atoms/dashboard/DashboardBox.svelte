@@ -1,7 +1,11 @@
 <script lang="ts">
+	import type { ColorMode } from '$lib/components/atoms/dashboard/colorModes';
+	import { colorModes } from '$lib/components/atoms/dashboard/colorModes';
+
 	export let href: string | undefined = undefined;
+	export let colorMode: ColorMode = colorModes.info;
 </script>
 
-<a {href} class="relative h-16 rounded-md border bg-sky-300 p-1 shadow hover:bg-sky-400">
+<a {href} class={'relative rounded-md border p-1 shadow ' + colorMode.classes}>
 	<slot />
 </a>

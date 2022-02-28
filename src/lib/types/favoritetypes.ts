@@ -1,6 +1,6 @@
 import type { ClusterType, ProjectType, WorkloadType } from '$lib/types/ranchertypes';
 
-export type FavoriteWorkload = Pick<WorkloadType, 'name' | 'id' | 'namespaceId'>;
+export type FavoriteWorkload = Pick<WorkloadType, 'name' | 'id' | 'namespaceId' | 'type'>;
 
 export type FavoriteWorkloads = { [projectId: string]: FavoriteWorkload[] };
 
