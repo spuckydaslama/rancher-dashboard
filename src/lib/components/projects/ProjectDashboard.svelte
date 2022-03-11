@@ -23,7 +23,9 @@
 			: dynamicAndStoredProjects;
 </script>
 
-<DashboardBoxGrid loading={!projects && !$showOnlyFavourites}>
+<DashboardBoxGrid
+	loading={!projects && (!$showOnlyFavourites || !favoriteProjectsForThisCluster?.length)}
+>
 	{#if filteredProjects}
 		{#each filteredProjects as project}
 			<ProjectBox {clusterId} {project} />

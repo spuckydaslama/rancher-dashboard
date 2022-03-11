@@ -28,7 +28,9 @@
 			: dynamicAndStoredWorkloads;
 </script>
 
-<DashboardBoxGrid loading={!workloads && !$showOnlyFavourites}>
+<DashboardBoxGrid
+	loading={!workloads && (!$showOnlyFavourites || !favoriteWorkloadsForThisProject?.length)}
+>
 	{#if filteredWorkloads}
 		{#each filteredWorkloads as workload (workload.id)}
 			<WorkloadBox {clusterId} {projectId} {workload} />

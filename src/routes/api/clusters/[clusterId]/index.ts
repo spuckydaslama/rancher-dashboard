@@ -11,5 +11,5 @@ export const get: RequestHandler = async (event) => {
 	const { id, name } = await response.json();
 	const cluster: ClusterType = { id, name };
 	const body = cluster as unknown as JSONValue;
-	return { body, headers: { 'Cache-Control': 'max-age=60' } };
+	return { body, headers: { 'Cache-Control': 'max-age=300' } };
 };

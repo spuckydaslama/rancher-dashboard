@@ -21,7 +21,7 @@
 			: dynamicAndStoredClusters;
 </script>
 
-<DashboardBoxGrid loading={!clusters && !$showOnlyFavourites}>
+<DashboardBoxGrid loading={!clusters && (!$showOnlyFavourites || !$favoriteClusters?.length)}>
 	{#if filteredClusters}
 		{#each filteredClusters as cluster (cluster.id)}
 			<ClusterBox {cluster} />
