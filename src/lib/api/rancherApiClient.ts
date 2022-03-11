@@ -22,15 +22,17 @@ export const fetchFromRancher: (request: Request, path: string) => Promise<Respo
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const mapToWorkload: (payload: any) => WorkloadType = (payload) => {
-	const { id, name, namespaceId, type, scale } = payload;
+	const { id, name, namespaceId, type, scale, containers } = payload;
 	const status = payload[`${type}Status`];
 	const readyReplicas = status?.readyReplicas;
+	const image = containers?.[0]?.image;
 	return {
 		id,
 		name,
 		namespaceId,
 		type,
 		scale,
-		readyReplicas
+		readyReplicas,
+		image
 	};
 };

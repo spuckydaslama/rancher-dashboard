@@ -15,4 +15,5 @@ export interface WorkloadType {
 	type: 'job' | 'deployment' | 'statefulSet' | 'cronJob';
 	scale?: number;
 	readyReplicas?: number;
+	image?: string;
 }

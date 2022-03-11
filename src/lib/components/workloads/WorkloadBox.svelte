@@ -49,6 +49,8 @@
 		}
 	};
 	$: scaleColorMode = getScaleColorMode(workload.readyReplicas, workload.scale);
+
+	$: dockerImage = workload?.image?.split('/').slice(1).join('/');
 </script>
 
 <DashboardBox colorMode={scaleColorMode}>
@@ -60,12 +62,13 @@
 	<div>
 		<DashboardBoxName>{workload.name}</DashboardBoxName>
 	</div>
-	<div>
-		<span class="text-sm text-gray-700">{workload.namespaceId}</span>
+	<div class="flex">
+		<div class="grow text-sm italic text-gray-700">{workload.namespaceId}</div>
+		<div class="text-sm">{scaleState}</div>
 	</div>
-	<div class="flex items-center">
+	<div class="flex flex-col">
 		<div class="grow">
-			<span>{scaleState}</span>
+			<div class="text-xs">{dockerImage}</div>
 		</div>
 		<div>
 			<LinkToRancherWorkload {clusterId} {workload}>workload</LinkToRancherWorkload>
