@@ -17,6 +17,7 @@
 	import { browser } from '$app/env';
 	import Breadcrumbs from '$lib/components/atoms/breadcrumb/Breadcrumbs.svelte';
 	import ClustersItem from '$lib/components/toolbar/ClustersItem.svelte';
+	import { authToken, rancherUrl } from '$lib/stores/settings';
 
 	const favoritesSwitchClicked = () => {
 		$showOnlyFavourites = !$showOnlyFavourites;
@@ -59,6 +60,9 @@
 			updateCrumbs($page.params.clusterId, $page.params.projectId);
 		}
 	}
+
+	let pingSettingItem: boolean;
+	$: pingSettingItem = !($rancherUrl && $authToken);
 </script>
 
 <DashboardToolbar>
@@ -69,6 +73,6 @@
 	</svelte:fragment>
 	<svelte:fragment slot="side">
 		<FavoritesSwitch value={$showOnlyFavourites} on:click={favoritesSwitchClicked} />
-		<SettingsItem href={pathToSettings} />
+		<SettingsItem href={pathToSettings} ping={pingSettingItem} />
 	</svelte:fragment>
 </DashboardToolbar>
