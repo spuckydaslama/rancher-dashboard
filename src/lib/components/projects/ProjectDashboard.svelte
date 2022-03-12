@@ -10,10 +10,9 @@
 
 	$: favoriteProjectsForThisCluster = $favoriteProjects[clusterId];
 
-	$: dynamicAndStoredProjects = [
-		...(projects || []),
-		...(favoriteProjectsForThisCluster || [])
-	].filter(isUniquePredicate((p) => p.id));
+	$: dynamicAndStoredProjects = [...(projects || []), ...(favoriteProjectsForThisCluster || [])]
+		.filter(isUniquePredicate((p) => p.id))
+		.sort((p1, p2) => p1.id.localeCompare(p2.id));
 
 	$: filteredProjects =
 		$showOnlyFavourites && dynamicAndStoredProjects && favoriteProjectsForThisCluster?.length > 0

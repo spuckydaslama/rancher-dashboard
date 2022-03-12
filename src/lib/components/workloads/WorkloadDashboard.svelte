@@ -14,10 +14,9 @@
 	$: favoriteWorkloadsForThisProject = $favoriteWorkloads[projectId];
 
 	let dynamicAndStoredWorkloads: WorkloadType[];
-	$: dynamicAndStoredWorkloads = [
-		...(workloads || []),
-		...(favoriteWorkloadsForThisProject || [])
-	].filter(isUniquePredicate((w) => w.id));
+	$: dynamicAndStoredWorkloads = [...(workloads || []), ...(favoriteWorkloadsForThisProject || [])]
+		.filter(isUniquePredicate((w) => w.id))
+		.sort((w1, w2) => w1.id.localeCompare(w2.id));
 
 	let filteredWorkloads: WorkloadType[];
 	$: filteredWorkloads =

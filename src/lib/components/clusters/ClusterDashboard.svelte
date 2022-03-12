@@ -8,9 +8,9 @@
 
 	export let clusters: ClusterType[] | undefined;
 	let dynamicAndStoredClusters: Array<ClusterType | FavoriteCluster>;
-	$: dynamicAndStoredClusters = [...(clusters || []), ...($favoriteClusters || [])].filter(
-		isUniquePredicate((c) => c.id)
-	);
+	$: dynamicAndStoredClusters = [...(clusters || []), ...($favoriteClusters || [])]
+		.filter(isUniquePredicate((c) => c.id))
+		.sort((c1, c2) => c1.id.localeCompare(c2.id));
 
 	let filteredClusters: Array<ClusterType | FavoriteCluster>;
 	$: filteredClusters =

@@ -26,9 +26,15 @@
 				)
 			};
 		} else {
+			const newFavoriteWorkload: FavoriteWorkload = {
+				id: workload.id,
+				namespaceId: workload.namespaceId,
+				name: workload.name,
+				type: workload.type
+			};
 			$favoriteWorkloads = {
 				...$favoriteWorkloads,
-				[projectId]: [...(favoriteWorkloadsForThisProject || []), workload]
+				[projectId]: [...(favoriteWorkloadsForThisProject || []), newFavoriteWorkload]
 			};
 		}
 	};
@@ -68,7 +74,7 @@
 	</div>
 	<div class="flex flex-col">
 		<div class="grow">
-			<div class="text-xs">{dockerImage}</div>
+			<div class="text-xs">{dockerImage || '...'}</div>
 		</div>
 		<div>
 			<LinkToRancherWorkload {clusterId} {workload}>workload</LinkToRancherWorkload>
