@@ -8,7 +8,7 @@
 
 <ToolbarLink {href}>
 	<span class="relative">
-		<IconCog class="inline-flex -mt-0.5" />
+		<IconCog class="-mt-0.5 inline-flex" />
 		{#if ping}
 			<span class="absolute top-0 right-0 flex h-2.5 w-2.5">
 				<span
