@@ -4,16 +4,28 @@ import { fetchFromRancher, mapToWorkload } from '$lib/api/rancherApiClient';
 import type { WorkloadType } from '$lib/types/ranchertypes';
 
 export const get: RequestHandler = async (event) => {
-	const response = await fetchFromRancher(
+	const workloadsResponse = await fetchFromRancher(
 		event.request,
 		`/projects/${event.params.projectId}/workloads`
 	);
-	if (response.status !== 200) {
-		return response;
+	if (workloadsResponse.status !== 200) {
+		return workloadsResponse;
 	}
 
-	const payload = await response.json();
-	const workload: WorkloadType[] = payload.data.map(mapToWorkload);
-	const body = workload as unknown as JSONValue;
+	const statefulsetsResponse = await fetchFromRancher(
+		event.request,
+		`/projects/${event.params.projectId}/statefulsets`
+	);
+	if (statefulsetsResponse.status !== 200) {
+		return statefulsetsResponse;
+	}
+
+	const workloadsPayload = await workloadsResponse.json();
+	const statefulsetsPayload = await statefulsetsResponse.json();
+	const workloads: WorkloadType[] = [
+		...workloadsPayload.data.map(mapToWorkload),
+		...statefulsetsPayload.data.map(mapToWorkload)
+	];
+	const body = workloads as unknown as JSONValue;
 	return { body };
 };

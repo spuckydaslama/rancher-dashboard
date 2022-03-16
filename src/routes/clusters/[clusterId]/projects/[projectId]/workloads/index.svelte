@@ -13,7 +13,7 @@
 	const updateWorkloads = async () => {
 		abortUpdateWorkloads = new AbortController();
 		workloads = (await getWorkloads(projectId, abortUpdateWorkloads.signal)).filter(({ type }) =>
-			['deployment', 'statfulSet'].includes(type)
+			['deployment', 'statefulSet'].includes(type)
 		);
 		updateWorkloadsTimeout = setTimeout(updateWorkloads, 10000) as unknown as number;
 	};
