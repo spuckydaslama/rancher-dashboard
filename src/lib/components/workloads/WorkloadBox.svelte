@@ -5,8 +5,8 @@
 	import type { FavoriteWorkload } from '$lib/types/favoritetypes';
 	import { favoriteWorkloads, getFavoriteWorkload } from '$lib/stores/favorites';
 	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
-	import LinkToRancherWorkload from '$lib/components/workloads/LinkToRancherWorkload.svelte';
 	import { ColorMode, colorModes } from '$lib/components/atoms/dashboard/colorModes';
+	import { rancherUrl } from '$lib/stores/settings';
 
 	export let clusterId: string;
 	export let projectId: string;
@@ -57,6 +57,13 @@
 	$: scaleColorMode = getScaleColorMode(workload.readyReplicas, workload.scale);
 
 	$: dockerImage = workload?.image?.split('/').slice(1).join('/');
+	$: dockerImageName = dockerImage?.split(':')[0];
+	$: dockerImageVersion = dockerImage?.split(':')[1];
+
+	let hrefToRancherWorkload: string;
+	$: if ($rancherUrl && clusterId && workload) {
+		hrefToRancherWorkload = `${$rancherUrl}/dashboard/c/${clusterId}/explorer/apps.${workload.type}/${workload.namespaceId}/${workload.name}`;
+	}
 </script>
 
 <DashboardBox colorMode={scaleColorMode}>
@@ -66,18 +73,22 @@
 		class="absolute right-1 top-1 h-6 w-6"
 	/>
 	<div>
-		<DashboardBoxName>{workload.name}</DashboardBoxName>
+		<a target="_blank" href={hrefToRancherWorkload} class="hover:underline">
+			<DashboardBoxName>{workload.name}</DashboardBoxName>
+		</a>
 	</div>
 	<div class="flex">
-		<div class="grow text-sm italic text-gray-700">{workload.namespaceId}</div>
+		<div class="grow text-xs italic text-gray-700">{workload.namespaceId}</div>
 		<div class="text-sm">{scaleState}</div>
 	</div>
 	<div class="flex flex-col">
 		<div class="grow">
-			<div class="text-xs">{dockerImage || '...'}</div>
+			<div class="text-sm">
+				<span class="text-amber-600">{dockerImageVersion || '...'}</span>
+				<span class="text-xs text-gray-500">({dockerImageName || '...'})</span>
+			</div>
 		</div>
 		<div>
-			<LinkToRancherWorkload {clusterId} {workload}>workload</LinkToRancherWorkload>
 			<!--			<LinkToRancherApiUiWorkload {projectId} workloadId={workload?.id}>-->
 			<!--				api-->
 			<!--			</LinkToRancherApiUiWorkload>-->
