@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte';
 	import { favoriteProjects } from '$lib/stores/favorites';
 	import { getProject } from '$lib/api/localApiClient';
+	import DashboardBox from '$lib/components/atoms/dashboard/DashboardBox.svelte';
+	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
 
 	let { projectId } = $page.params;
 
@@ -22,5 +24,7 @@
 </svelte:head>
 
 <div>
-	{projectId} - {project?.name}
+	<DashboardBox href={`${$page.url.href}/workloads`}>
+		<DashboardBoxName>Workloads</DashboardBoxName>
+	</DashboardBox>
 </div>

@@ -6,7 +6,6 @@
 	import { getCluster } from '$lib/api/localApiClient';
 	import DashboardBox from '$lib/components/atoms/dashboard/DashboardBox.svelte';
 	import DashboardBoxName from '$lib/components/atoms/dashboard/DashboardBoxName.svelte';
-	import DashboardBoxGrid from '$lib/components/atoms/dashboard/DashboardBoxGrid.svelte';
 
 	let { clusterId } = $page.params;
 
@@ -23,9 +22,7 @@
 </svelte:head>
 
 <div>
-	<DashboardBoxGrid loading={!cluster}>
-		<DashboardBox href={`${$page.url.href}/projects`}>
-			<DashboardBoxName>Projects</DashboardBoxName>
-		</DashboardBox>
-	</DashboardBoxGrid>
+	<DashboardBox href={`${$page.url.href}/projects`}>
+		<DashboardBoxName>Projects</DashboardBoxName>
+	</DashboardBox>
 </div>
